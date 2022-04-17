@@ -2,8 +2,12 @@ import "../Styles/Header.css";
 
 import React from "react";
 import { NavLink } from "react-router-dom";
+import auth from "../firebase.init";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
+  const [user, loading] = useAuthState(auth);
   return (
     <div>
       <div className="nav">
@@ -19,17 +23,21 @@ const Header = () => {
         >
           Checkout
         </NavLink>
-        <NavLink
-          className={({ isActive }) => (isActive ? "active-link" : "link")}
-          to="/Signin"
-        >
-          SignIn
-        </NavLink>
+        {user ? 
+        <button onClick={()=>signOut(auth)}>Sign Out</button>
+        :
+          <NavLink
+            className={({ isActive }) => (isActive ? "active-link" : "link")}
+            to="/Signin"
+          >
+            SignIn
+          </NavLink>
+        }
         <NavLink
           className={({ isActive }) => (isActive ? "active-link" : "link")}
           to="/signup"
         >
-          SignUp
+           SignUp
         </NavLink>
       </div>
     </div>
