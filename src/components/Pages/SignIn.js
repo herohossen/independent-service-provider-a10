@@ -1,32 +1,38 @@
 import "../../Styles/Signin.css";
 import React from 'react';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+
 
 const SignIn = () => {
   return (
-    <div>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+<div className="container-auth">
+<div className="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true"/>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </div>
+			<div className="signup">
+				<form>
+					<label htmlFor="chk" aria-hidden="true">Sign up</label>
+					{/* <input type="text" name="txt" placeholder="User name" required=""/> */}
+					<input type="text" name="email" placeholder="Email" />
+					<input type="password" name="password" placeholder="Password" />
+					<input type="password" name="confirmpassword" placeholder="Confirm Password" />
+          <p className="text-danger">Password reset</p>
+					<button>Sign up</button>
+				</form>
+			</div>
+
+			<div className="login">
+				<form>
+					<label htmlFor="chk" aria-hidden="true">Login</label>
+					<input type="text" name="email" placeholder="Email" required=""/>
+					<input type="password" name="pswd" placeholder="Password" required=""/>
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+
+
+</div>
+    
   );
 };
 
