@@ -9,7 +9,10 @@ const Header = () => {
   const [user, loading] = useAuthState(auth);
   return (
     <div className="nav-container">
-      <div className="logo">Delowar Hossen</div>
+      <div className="logo">
+        Delowar Hossen
+        Your Virtual teacher
+      </div>
       <div className="mmmm">
         <ul>
           <li>
@@ -47,7 +50,9 @@ const Header = () => {
           </li>
           <li>
             {user ? (
-              <button className="btn btn-warning" onClick={() => signOut(auth)}>Sign Out</button>
+              <button className="btn btn-warning" onClick={() => signOut(auth)}>
+                Sign Out
+              </button>
             ) : (
               <NavLink
                 className={({ isActive }) =>
