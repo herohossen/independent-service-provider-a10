@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 const SignIn = () => {
   //   const [login, setLogin] = useState(false);
-  const [confirmError, setConfirmError] = useState();
+
 
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -20,7 +20,7 @@ const SignIn = () => {
     createUser,
     createLoading,
     createError,
-  ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
+  ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
   const handeelFormInput = (e) => {
     userInfo[e.target.name] = e.target.value;
@@ -40,30 +40,27 @@ const SignIn = () => {
 
   //User signIn End
 
-  //Confir do not match
-
-  //   if (userInfo.password !== userInfo.confirmpassword) {
-  //     setConfirmError("password does not match");
-  //     console.log(confirmError);
-  //     return;
-  //   }
-
   //Page Redirection
   const navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
   useEffect(() => {
     if (createUser || user) {
-        navigate(from, { replace: true });
+      navigate(from, { replace: true });
     }
     console.log(createUser);
   }, [createUser, user]);
+  //Confir do not match
+
+
   return (
-    <div className="container-auth">
+    <div className="containersignin">
+    
       <div className="main">
         <input type="checkbox" id="chk" aria-hidden="true" />
 
         <div className="signup">
+       
           <form onSubmit={handleSignUp}>
             <label htmlFor="chk" aria-hidden="true">
               Sign up
@@ -86,8 +83,9 @@ const SignIn = () => {
               name="confirmpassword"
               placeholder="Confirm Password"
             />
+     
             <p className="text-danger">Password reset</p>
-            <button>Sign up</button>
+            <button className="btn-login">Sign up</button>
           </form>
         </div>
 
@@ -110,7 +108,7 @@ const SignIn = () => {
               placeholder="Password"
               required=""
             />
-            <button>Login</button>
+            <button className="btn-login">Login</button>
           </form>
         </div>
       </div>

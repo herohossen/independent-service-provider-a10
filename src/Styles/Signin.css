@@ -1,4 +1,4 @@
-.container-auth{
+.containersignin{
 	margin: 0;
 	padding: 0;
 	display: flex;
@@ -25,7 +25,7 @@
 	width:100%;
 	height: 100%;
 }
-label{
+ label{
 	color: #fff;
 	font-size: 2.3em;
 	justify-content: center;
@@ -35,7 +35,7 @@ label{
 	cursor: pointer;
 	transition: .5s ease-in-out;
 }
-input{
+ input{
 	width: 60%;
 	height: 20px;
 	background: #e0dede;
@@ -59,7 +59,7 @@ p{
 	outline: none;
 	border-radius: 5px; 
 }
-button{
+ .btn-login{
 	width: 60%;
 	height: 40px;
 	margin: 10px auto;
@@ -76,7 +76,7 @@ button{
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-button:hover{
+.btn-login:hover{
 	background: #6d44b8;
 }
 .login{
