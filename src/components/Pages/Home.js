@@ -1,10 +1,11 @@
 import "../../Styles/Home.css";
 import msd from "../../images/tai.jpg";
-import abc from "../../images/react.png";
+import reactmama from "../../images/react.png";
+import mongodaba from "../../images/mangadaba.jpeg";
+import aspnet from "../../images/aspnet.png";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import Col from "react-bootstrap/Col";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,76 +17,101 @@ const Home = () => {
       </div>
       {/* carosal End */}
 
+      <h1 className="Service-header">My Services</h1>
       <div className="grid-container container-fluid">
         {/* card 1 */}
         {/* <div className="Row"> */}
-          <div className="col">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={abc} />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-              </ListGroup>
-              <Card.Body>
-                <button onClick={() => navigate("/checkout")}>CheckOut</button>
-              </Card.Body>
-            </Card>
-          </div>
-          {/* card 2 */}
-          <div className="col">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={abc} />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-              </ListGroup>
-              <Card.Body>
-                <button onClick={() => navigate("/checkout")}>CheckOut</button>
-              </Card.Body>
-            </Card>
-          </div>
-          {/* card 3 */}
-          <div className="col">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={abc} />
-              <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </Card.Text>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
-              </ListGroup>
-              <Card.Body>
+        <div>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={reactmama} />
+            <Card.Body>
+              <Card.Title>React.js</Card.Title>
+              <Card.Text>
+                React is now a most popular Framwork. You can learn the it in
+                the most easist way
+              </Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>
+                <span>Course Duration:</span> 29 Classes
+              </ListGroupItem>
+              <ListGroupItem>
+                <span>Price:</span> 4.500 tk
+              </ListGroupItem>
+            </ListGroup>
+            <Card.Body>
+              <div className="d-flex justify-content-center">
                 <button
-                  className="btn-primary"
+                  className="btn btn-danger  "
                   onClick={() => navigate("/checkout")}
                 >
-                  CheckOut
+                  CheckOut Now
                 </button>
-              </Card.Body>
-            </Card>
-          </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+        {/* card 2 */}
+        <div >
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={mongodaba} />
+            <Card.Body>
+              <Card.Title>Mongo DB</Card.Title>
+              <Card.Text>
+                Mongo DB is the most populer database and high in demand.
+              </Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>
+                <span>Course Duration:</span> 25 Classes
+              </ListGroupItem>
+              <ListGroupItem>
+                <span>Price:</span> 3,000 tk
+              </ListGroupItem>
+            </ListGroup>
+            <Card.Body>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-danger  "
+                  onClick={() => navigate("/checkout")}
+                >
+                  CheckOut Now
+                </button>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+        {/* card 3 */}
+        <div>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={aspnet} />
+            <Card.Body>
+              <Card.Title>Asp.Net</Card.Title>
+              <Card.Text>
+                Asp.Net is the most popular Framwork for the Developer and
+                demandable
+              </Card.Text>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+              <ListGroupItem>
+                <span>Course Duration:</span> 50 Classes
+              </ListGroupItem>
+              <ListGroupItem>
+                <span>Price:</span> 20,000 tk
+              </ListGroupItem>
+            </ListGroup>
+            <Card.Body>
+              <div className="d-flex justify-content-center">
+                <button
+                  className="btn btn-danger  "
+                  onClick={() => navigate("/checkout")}
+                >
+                  CheckOut Now
+                </button>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
         {/* </div> */}
       </div>
 
