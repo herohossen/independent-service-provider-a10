@@ -9,32 +9,45 @@ const Header = () => {
   const [user, loading] = useAuthState(auth);
   return (
     <div className="nav-container">
-      <div className="logo">
-        Delowar Hossen</div>
+      <div className="logo">Delowar Hossen</div>
       <div className="mmmm">
         <ul>
           <li>
             <NavLink
-              className={({ isActive }) =>
-                isActive ? "active-link" : "link"
-              }
+              className={({ isActive }) => (isActive ? "active-link" : "link")}
               to="/home"
             >
               Home
             </NavLink>
           </li>
 
-          <li>
+          {/* <li>
             <NavLink
               className={({ isActive }) => (isActive ? "active-link" : "link")}
               to="/checkout"
             >
               Checkout
             </NavLink>
+          </li> */}
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "link")}
+              to="/blog"
+            >
+              Blog
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active-link" : "link")}
+              to="/about"
+            >
+              About
+            </NavLink>
           </li>
           <li>
             {user ? (
-              <button onClick={() => signOut(auth)}>Sign Out</button>
+              <button className="btn btn-warning" onClick={() => signOut(auth)}>Sign Out</button>
             ) : (
               <NavLink
                 className={({ isActive }) =>
