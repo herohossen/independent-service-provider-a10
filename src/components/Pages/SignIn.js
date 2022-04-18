@@ -86,6 +86,7 @@ const SignIn = () => {
      
             <p className="text-danger">Password reset</p>
             <button className="btn-login">Sign up</button>
+            <button className="btn-login">Google Sign up</button>
           </form>
         </div>
 
