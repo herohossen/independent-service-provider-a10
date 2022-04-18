@@ -1,102 +1,130 @@
 import "../../Styles/Signup.css";
 import React, { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import auth from "../../firebase.init";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-//   const [login, setLogin] = useState(false);
-  const [confirmError, setConfirmError] = useState();
-
-
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    confirmpassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [error, setError] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
-  //Create User
-  const [
-    createUserWithEmailAndPassword,
-    createUser,
-    createLoading,
-    createError,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, hookError] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  // , { sendEmailVerification: true }
+  // console.log(hookError);
 
-  const handeelFormInput = (e) => {
-    // console.log(e.target.name, e.target.value);
-    userInfo[e.target.name] = e.target.value;
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
 
+  // console.log(googleError);
 
+  const handleEmailChange = (e) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const validEmail = emailRegex.test(e.target.value);
+    if (validEmail) {
+      setUserInfo({ ...userInfo, email: e.target.value });
+      setError({ ...error, email: '' });
+    } else {
+      setError({ ...error, email: 'Email not Valid' });
+      setUserInfo({ ...userInfo, email: '' });
+    }
+    // console.log(e.target.value);
   };
-  //Prevent default FormRelod
-  const handleSignUp = (e) => {
+
+  const handlePasswordChang = (e) => {
+    const passwordRegex = /.{6,}/;
+    const validPassword = passwordRegex.test(e.target.value);
+    if (validPassword) {
+      setUserInfo({ ...userInfo, password: e.target.value });
+      setError({ ...error, password: '' });
+    } else {
+      setError({ ...error, password: 'Please provide 6 digit' });
+      setUserInfo({ ...userInfo, password: '' });
+    }
+  };
+
+  const handleConfirmPassword = (e) => {
+    if (e.target.value === userInfo.password) {
+      setUserInfo({ ...userInfo, confirmPassword: e.target.value });
+      setError({ ...error, confirmPassword: '' });
+    } else {
+      setError({ ...error, confirmPassword: "Password don't match" });
+      setUserInfo({ ...userInfo, confirmPassword: '' });
+    }
+  };
+
+  const handleSubmitSignUp = (e) => {
     e.preventDefault();
     createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-    console.log("signup");
   };
-  //Confir do not match
 
-//   if (userInfo.password !== userInfo.confirmpassword) {
-//     setConfirmError("password does not match");
-//     console.log(confirmError);
-//     return;
-//   }
-
-
-const navigate = useNavigate();
+  // side effect user navigation related
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || '/';
   useEffect(() => {
-    if (createUser) {
-      navigate("/home");
-      
+    if (user || googleUser) {
+      navigate(from, { replace: true });
+      // navigate('/signin');
     }
-    console.log(createUser);
-  }, [createUser]);
+  }, [user, googleUser]);
 
+  // loading related
+  if (loading || googleLoading) {
+    return <p>Loading...</p>;
+  }
   return (
-    <div>
-      <Form onSubmit={handleSignUp}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            onBlur={(e) => handeelFormInput(e)}
-            type="text"
-            name="email"
-            placeholder="Enter email"
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
+    <div className="signup">
+      <form onSubmit={handleSubmitSignUp}>
+        <label htmlFor="chk" aria-hidden="true">
+          Sign up
+        </label>
+        {/* <input type="text" name="txt" placeholder="User name" required=""/> */}
+        <input
+          type="text"
+          name="email"
+          onChange={handleEmailChange}
+          placeholder="Email"
+        />
+        {error?.email && (
+          <p className="error-message text-danger">{error.email}</p>
+        )}
+        <input
+          type="password"
+          name="password"
+          onChange={ handlePasswordChang}
+          placeholder="Password"
+        />
+           {/* password error massage */}
+           {error?.password && (
+              <p className="error-message text-danger">{error.password}</p>
+            )}
+        <input
+          type="password"
+          name="confirmpassword"
+          placeholder="Confirm Password"
+          onChange={handleConfirmPassword}
+        />
+                               {error?.confirmPassword && (
+              <p className="error-message text-danger">
+                {error.confirmPassword}
+              </p>
+            )}
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            onBlur={(e) => handeelFormInput(e)}
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            onBlur={(e) => handeelFormInput(e)}
-            type="password"
-            name="confirmpassword"
-            placeholder="Password"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-        <p className="text-danger">{confirmError}</p>
-      </Form>
+        <p className="text-danger">Password reset</p>
+        <button className="btn-login">Sign up</button>
+        <button onClick={() => signInWithGoogle()} className="btn-login">
+          Google Sign up
+        </button>
+      </form>
     </div>
   );
 };

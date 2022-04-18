@@ -51,13 +51,11 @@ const Footer = () => {
         </div>
 
         <div className="footer-right">
-          <p className="footer-company-about">
-            <p>
-              {" "}
-              <span>About Me</span>
-            </p>
-            <p> I am Delowar Hossen. I teach programming.</p>
-          </p>
+          <div className="footer-company-about">
+            {" "}
+            <span>About Me</span>
+            <p>I am a programmer. I teach programming</p>
+          </div>
 
           <div className="footer-icons">
             {/* <a href="#"><i class="fa fa-facebook"></i></a>

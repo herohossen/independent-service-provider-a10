@@ -58,17 +58,17 @@ const Header = () => {
                 className={({ isActive }) =>
                   isActive ? "active-link" : "link"
                 }
-                to="/Signin"
+                to="/signin"
               >
                 SignIn
               </NavLink>
             )}
-            {/* <NavLink
+            <NavLink
               className={({ isActive }) => (isActive ? "active-link" : "link")}
               to="/signup"
             >
               SignUp
-            </NavLink> */}
+            </NavLink>
           </li>
         </ul>
       </div>

@@ -115,8 +115,7 @@ const Home = () => {
         {/* </div> */}
       </div>
 
-      <div>Section 3</div>
-      <div>section 4</div>
+      
       <div></div>
     </div>
   );

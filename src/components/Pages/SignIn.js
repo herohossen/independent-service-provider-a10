@@ -1,114 +1,126 @@
 import "../../Styles/Signin.css";
+import Signup from '../../components/Pages/Signup'
 import React, { useEffect, useState } from "react";
 import auth from "../../firebase.init";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useSendPasswordResetEmail,
+} from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 const SignIn = () => {
   //   const [login, setLogin] = useState(false);
 
-
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
-    confirmpassword: "",
+    email: '',
+    password: '',
   });
-  console.log(userInfo.email, userInfo.password, userInfo.confirmpassword);
-  //Create User start
-  const [
-    createUserWithEmailAndPassword,
-    createUser,
-    createLoading,
-    createError,
-  ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  // console.log(userInfo);
 
-  const handeelFormInput = (e) => {
-    userInfo[e.target.name] = e.target.value;
-  };
-  //Prevent default FormRelod
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    createUserWithEmailAndPassword(userInfo.email, userInfo.password);
-    signInWithEmailAndPassword(userInfo.email, userInfo.password);
-  };
-  //Create user end
+  const [error, setError] = useState({
+    email: '',
+    password: '',
+  });
 
-  //User signIn Start
-
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, user, loading, hookError] =
     useSignInWithEmailAndPassword(auth);
 
-  //User signIn End
+  // console.log(hookError);
 
-  //Page Redirection
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
+
+  // console.log(googleError);
+
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+
+  const handleEmailChange = (e) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    const validEmail = emailRegex.test(e.target.value);
+    if (validEmail) {
+      setUserInfo({ ...userInfo, email: e.target.value });
+      setError({ ...error, email: '' });
+    } else {
+      setError({ ...error, email: 'Invalid Email' });
+      setUserInfo({ ...userInfo, email: '' });
+    }
+  };
+  const handlePasswordChange = (e) => {
+    const passwordRegex = /.{6,}/;
+    const validPassword = passwordRegex.test(e.target.value);
+    if (validPassword) {
+      setUserInfo({ ...userInfo, password: e.target.value });
+      setError({ ...error, password: '' });
+    } else {
+      setError({ ...error, password: 'Please provide 6 digit' });
+      setUserInfo({ ...userInfo, password: '' });
+    }
+  };
+
+  const handleSubmitSineIn = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(userInfo.email, userInfo.password);
+  };
+
   const navigate = useNavigate();
-  let location = useLocation();
-  let from = location.state?.from?.pathname || "/";
+  const location = useLocation();
+  let from = location.state?.from?.pathname || '/';
   useEffect(() => {
-    if (createUser || user) {
+    if (user || googleUser) {
       navigate(from, { replace: true });
     }
-    console.log(createUser);
-  }, [createUser, user]);
-  //Confir do not match
+  }, [user, googleUser]);
 
+  if (loading || googleLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="containersignin">
-    
       <div className="main">
         <input type="checkbox" id="chk" aria-hidden="true" />
 
         <div className="signup">
-       
-          <form onSubmit={handleSignUp}>
-            <label htmlFor="chk" aria-hidden="true">
-              Sign up
-            </label>
-            {/* <input type="text" name="txt" placeholder="User name" required=""/> */}
-            <input
-              type="text"
-              name="email"
-              onBlur={(e) => handeelFormInput(e)}
-              placeholder="Email"
-            />
-            <input
-              type="password"
-              name="password"
-              onBlur={(e) => handeelFormInput(e)}
-              placeholder="Password"
-            />
-            <input
-              type="password"
-              name="confirmpassword"
-              placeholder="Confirm Password"
-            />
-     
-            <p className="text-danger">Password reset</p>
-            <button className="btn-login">Sign up</button>
-            <button className="btn-login">Google Sign up</button>
-          </form>
+<Signup/>
         </div>
-
+{/* Login Started */}
         <div className="login">
-          <form onSubmit={handleSignUp}>
+        <form onSubmit={handleSubmitSineIn}>
             <label htmlFor="chk" aria-hidden="true">
               Login
             </label>
             <input
               type="text"
               name="email"
-              onBlur={(e) => handeelFormInput(e)}
+              onChange={handleEmailChange}
               placeholder="Email"
               required=""
             />
+            {error?.email && (
+              <p className="error-message text-danger">{error.email}</p>
+            )}
             <input
               type="password"
               name="password"
-              onBlur={(e) => handeelFormInput(e)}
+              onChange={handlePasswordChange}
               placeholder="Password"
               required=""
             />
+                        {error?.password && (
+              <p className="error-message text-danger">{error.password}</p>
+            )}
+            <p>
+              Forget Password?{" "}
+              <Link
+                to=""
+                className="btn btn-link text-primary pe-auto text-decoration-none"
+                onClick={() => sendPasswordResetEmail(userInfo.email)}
+              >
+                Reset Password
+              </Link>{" "}
+            </p>
+            <hr />
             <button className="btn-login">Login</button>
           </form>
         </div>
