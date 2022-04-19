@@ -10,7 +10,6 @@ const Header = () => {
   return (
     <div className="nav-container">
       <div className="logo">
-        Delowar Hossen
         Your Virtual teacher
       </div>
       <div className="mmmm">

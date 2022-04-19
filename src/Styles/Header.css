@@ -18,25 +18,24 @@
 .nav-container {
   width: 100%;
   margin: auto;
-  padding: 20px 0;
+  padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #211D49;
-  /* background-color: yellow; */
 }
 .logo {
-  width: 150px;
+  width: 200px;
   height: 50px;
   cursor: pointer;
   color:white;
+  padding-left: 15px;
 }
 .nav-container ul li {
   list-style: none;
   display: inline-block;
   margin: 0 20px;
   position: relative;
- 
 }
 
 /* .nav-container ul li lll {
