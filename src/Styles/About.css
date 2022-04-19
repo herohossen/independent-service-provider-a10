@@ -1,6 +1,6 @@
 .aboutpage{
     display:flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom:20px;
 }
@@ -8,8 +8,14 @@
     width:100%;
     height:300px;
 }
+.aboutpage h1{
+    color:darkblue;
+    font-weight:bold;
+}
 .aboutpage p{
-    text-align: left;
+    text-align:left;
+    /* padding-right: 20px; */
+    /* margin-right:50px; */
 }
 
 /* .myImage{

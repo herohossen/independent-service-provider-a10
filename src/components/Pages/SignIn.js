@@ -9,6 +9,8 @@ import {
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const SignIn = () => {
   //   const [login, setLogin] = useState(false);
 
@@ -63,9 +65,23 @@ const SignIn = () => {
     signInWithEmailAndPassword(userInfo.email, userInfo.password);
   };
 
+  useEffect(() => {
+    if (hookError || googleError) {
+      switch (hookError?.code) {
+        case 'auth/invalid-email':
+          toast('Invalid email provided, please provide a valid email');
+          break;
+        case 'auth/invalid-password':
+          toast('Wrong password. Intruder!!');
+          break;
+        default:
+          toast('something went wrong');
+      }
+    }  }, [hookError, googleError]);
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || '/';
+
   useEffect(() => {
     if (user || googleUser) {
       navigate(from, { replace: true });
@@ -122,6 +138,7 @@ const SignIn = () => {
             </p>
             <hr />
             <button className="btn-login">Login</button>
+            <ToastContainer />
           </form>
         </div>
       </div>

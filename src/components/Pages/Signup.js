@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import auth from "../../firebase.init";
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -66,10 +67,25 @@ const Signup = () => {
     createUserWithEmailAndPassword(userInfo.email, userInfo.password);
   };
 
+  useEffect(() => {
+    if (hookError || googleError) {
+      switch (hookError?.code) {
+        case 'auth/invalid-email':
+          toast('Invalid email provided, please provide a valid email');
+          break;
+        case 'auth/invalid-password':
+          toast('Wrong password. Intruder!!');
+          break;
+        default:
+          toast('something went wrong');
+      }
+    }
+  }, [hookError, googleError]);
   // side effect user navigation related
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || '/';
+
   useEffect(() => {
     if (user || googleUser) {
       navigate(from, { replace: true });
@@ -84,6 +100,7 @@ const Signup = () => {
   return (
     <div className="signup">
       <form onSubmit={handleSubmitSignUp}>
+      <ToastContainer />
         <label htmlFor="chk" aria-hidden="true">
           Sign up
         </label>
@@ -118,8 +135,6 @@ const Signup = () => {
                 {error.confirmPassword}
               </p>
             )}
-
-        <p className="text-danger">Password reset</p>
         <button className="btn-login">Sign up</button>
         <button onClick={() => signInWithGoogle()} className="btn-login">
           Google Sign up

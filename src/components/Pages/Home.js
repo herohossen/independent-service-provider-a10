@@ -11,9 +11,9 @@ import "../../Styles/Home.css";
    const navigate = useNavigate();
    return (
      <div className="container">
-       <div >
+       <div>
          <div className="banner">
-           <img className="img-fluid" src={bann} alt=""></img>
+           <img className="img-fluid imgwidth" src={bann} alt=""></img>
            <div>
              <h1
                className="fw-bold fs-2 text-center"
@@ -30,7 +30,7 @@ import "../../Styles/Home.css";
          </div>
        </div>
 
-       <h1 className="Service-header">My Services</h1>
+       <h1 className="Service-header text-danger">My Services</h1>
        <div className="grid-container container-fluid">
          {/* card 1 */}
          {/* <div className="Row"> */}
@@ -128,7 +128,70 @@ import "../../Styles/Home.css";
          {/* </div> */}
        </div>
 
-       <div></div>
+       <h1 className="Service-header text-primary">Reviews</h1>
+       <div className="grid-container container-fluid">
+         {/* card 1 */}
+         {/* <div className="Row"> */}
+         <div>
+           <Card style={{ width: "18rem" }}>
+             {/* <Card.Img variant="top" src={reactmama} /> */}
+             <Card.Body>
+               {/* <Card.Title>React.js</Card.Title> */}
+               <Card.Text>I like Mongodb course very much</Card.Text>
+             </Card.Body>
+             <ListGroup className="list-group-flush">
+               <ListGroupItem>
+                 <span>Name:</span> Anwar
+               </ListGroupItem>
+               <ListGroupItem>
+                 <span>Rate:</span> 4.5
+               </ListGroupItem>
+             </ListGroup>
+             <Card.Body></Card.Body>
+           </Card>
+         </div>
+         {/* Card 2
+          */}
+
+         <div>
+           <Card style={{ width: "18rem" }}>
+             {/* <Card.Img variant="top" src={reactmama} /> */}
+             <Card.Body>
+               {/* <Card.Title>React.js</Card.Title> */}
+               <Card.Text>Awosome! Love the react course</Card.Text>
+             </Card.Body>
+             <ListGroup className="list-group-flush">
+               <ListGroupItem>
+                 <span>Name:</span> Ahsan
+               </ListGroupItem>
+               <ListGroupItem>
+                 <span>Rate:</span> 4
+               </ListGroupItem>
+             </ListGroup>
+             <Card.Body></Card.Body>
+           </Card>
+         </div>
+
+         {/* card 3 */}
+         <div>
+           <Card style={{ width: "18rem" }}>
+             {/* <Card.Img variant="top" src={reactmama} /> */}
+             <Card.Body>
+               {/* <Card.Title>React.js</Card.Title> */}
+               <Card.Text>Wow! Wonder full. Love all the course</Card.Text>
+             </Card.Body>
+             <ListGroup className="list-group-flush">
+               <ListGroupItem>
+                 <span>Name:</span> Mitu
+               </ListGroupItem>
+               <ListGroupItem>
+                 <span>Rate:</span> 5
+               </ListGroupItem>
+             </ListGroup>
+             <Card.Body></Card.Body>
+           </Card>
+         </div>
+       </div>
      </div>
    );
  };

@@ -4,21 +4,21 @@ import myimg from '../../images/DelowarHossen.jpg'
 const About = () => {
   return (
     <div>
-      About page
       <div className="aboutpage">
         <div>
-          <p>I am Delowar Hossen</p>
+          <h1>I am Delowar Hossen</h1>
+
           <p>
-            I want to be react programmer. So i am trying to myself skillfull in
-            react.
+            I want to be react programmer. From today my only determination is
+            to achive my goal. So i will try harder and harder to improve
+            myself.
           </p>
           <p></p>
         </div>
         <div className="myImage">
-          <img src={myimg} alt=""/>
+          <img src={myimg} alt="" />
         </div>
       </div>
-
     </div>
   );
 };

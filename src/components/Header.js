@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <div className="nav-container">
       <div className="logo">
-        Your Virtual teacher
+        Virtual Teacher
       </div>
       <div className="mmmm">
         <ul>
@@ -62,12 +62,12 @@ const Header = () => {
                 SignIn
               </NavLink>
             )}
-            <NavLink
+            {/* <NavLink
               className={({ isActive }) => (isActive ? "active-link" : "link")}
               to="/signup"
             >
               SignUp
-            </NavLink>
+            </NavLink> */}
           </li>
         </ul>
       </div>
